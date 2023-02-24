@@ -12,13 +12,21 @@ const refs = {
 };
 
 const onSearch = e => {
-  fetchCountries(e.target.value).then(showResultPage);
+  if (e.target.value.trim() === '') {
+    refs.countryInfo.innerHTML = '';
+    refs.countryList.innerHTML = '';
+    return;
+  }
+  fetchCountries(e.target.value.trim())
+    .then(showResultPage)
+    .catch(() => Notify.failure('Oops, there is no country with that name'));
 };
 
 const showResultPage = data => {
-  console.log(data);
-  if (data.length > 10) {
-    return Notify.warning('too much');
+    if (data.length > 10) {
+    return Notify.info(
+      'Too many matches found. Please enter a more specific name.'
+    );
   }
   if (data.length === 1) {
     refs.countryList.innerHTML = '';

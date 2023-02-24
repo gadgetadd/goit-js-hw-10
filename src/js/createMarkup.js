@@ -6,23 +6,25 @@ export function createCountryMarkup({
   flags: { svg },
   languages,
 }) {
+  const languageString = Object.values(languages).join(', ');
+
   return `
-    <h2>
-        <img src="${svg}" width="32px" height="32px" alt="${official}">
+    <h2 class="country-title">
+        <img src="${svg}" width="36px" height="36px" alt="${official}">
         ${official}
     </h2>
-    <p><span>Capital: </span>${capital}</p>
-    <p><span>Population: </span>${population}</p>
-    <p><span>Languages: </span>${languages}</p>
+    <p class="country-content"><b>Capital: </b>${capital}</p>
+    <p class="country-content"><b>Population: </b>${population}</p>
+    <p class="country-content"><b>Languages: </b>${languageString}</p>
     `;
 }
 
 export function createListMarkup(countries) {
   return countries.reduce((markup, { name: { official }, flags: { svg } }) => {
     return (markup += `
-        <li><h2>
-            <img src="${svg}" width="32px" height="32px" alt="${official}">              
+        <li><p class="country-item">
+            <img src="${svg}" width="20px" height="20px" alt="${official}">              
             ${official}
-        </h2></li>`);
+        </p></li>`);
   }, '');
 }
