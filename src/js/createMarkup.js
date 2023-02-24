@@ -1,4 +1,3 @@
-createCountryMarkup, createListMarkup;
 export function createCountryMarkup({
   name: { official },
   capital,
